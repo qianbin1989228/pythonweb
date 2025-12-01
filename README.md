@@ -139,8 +139,8 @@
 如果您在阅读本书或运行代码时遇到任何问题，欢迎通过以下方式联系：
 
 *   **GitHub Issues**: [提交 Issue](https://github.com/qianbin1989228/pythonweb/issues)
-*   **Email**: (此处可以填写您的联系邮箱)
-*   **QQ交流群**: (如有，可填写)
+*   **Email**: (645224083@qq.com)
+*   **QQ交流群**: (820106877)
 
 ---
 
