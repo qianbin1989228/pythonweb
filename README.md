@@ -140,8 +140,7 @@
 
 *   **GitHub Issues**: [提交 Issue](https://github.com/qianbin1989228/pythonweb/issues)
 *   **微信号**: (python3web) （注：添加好友时请注明“来源于书籍推荐”，后续会拉您加入微信讨论群）
-*   **QQ交流群**: (820106877)
-*   
+*   **QQ交流群**: (820106877)  
 
 ---
 
