@@ -1,4 +1,4 @@
-# Python Web开发从入门到实战（FastAPI + Bootstrap）- 微课视频版
+# Python Web开发从入门到实践（FastAPI + Bootstrap）- 微课视频版
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688)](https://fastapi.tiangolo.com/)
