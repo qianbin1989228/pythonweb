@@ -5,6 +5,10 @@
 [![Bootstrap](https://img.shields.io/badge/Frontend-Bootstrap%205-purple)](https://getbootstrap.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<div align="center">
+  <img src="./BANNER-Python-Web-开发从入门到实战（Django+Bootstrap）-微课视频版.jpg" alt="图片描述">
+</div>
+
 > **拥抱异步编程，掌握现代全栈开发，集成AI应用，从零构建企业级门户网站。**
 
 > **🌐 在线演示**：本项目完整示例网站已部署上线，欢迎访问 **[www.paisentech.com](http://www.paisentech.com)** 体验最终成品效果！
