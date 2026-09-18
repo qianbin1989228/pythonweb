@@ -133,7 +133,7 @@
 *   **清华出版社官网**：[点击购买](https://www.tup.tsinghua.edu.cn/booksCenter/book_11619401.html)
 *   **京东**：[点击购买](此处替换为您的京东链接)
 *   **当当**：[点击购买](https://product.dangdang.com/30110058.html)
-*   **天猫**：[点击购买](此处替换为您的天猫链接)
+*   **天猫**：[点击购买](https://detail.tmall.com/item.htm?abbucket=20&id=1084223345571&mi_id=00006eLYZ5GRBbauawPpXzQdYkmIeXUodsWdgplIZJic8JU&ns=1&skuId=6302239663972&spm=a21n57.1.hoverItem.1&utparam=%7B%22aplus_abtest%22%3A%228af40ea1f89b69292260e5d653e222b9%22%7D&xxc=taobaoSearch)
 
 *(如果您觉得本书对您有帮助，欢迎购买纸质版支持作者！)*
 
