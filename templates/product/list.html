@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}产品中心{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- 左侧分类 -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ url_for('get_product_list') }}" 
+                   class="list-group-item {% if not current_category_id %}active{% endif %}">全部</a>
+                {% for cat in categories %}
+                <a href="{{ url_for('get_product_list') }}?category_id={{ cat.id }}" 
+                   class="list-group-item {% if current_category_id == cat.id %}active{% endif %}">
+                   {{ cat.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 右侧内容 -->
+        <div class="col-md-9">
+            <!-- 搜索框 -->
+            <form action="{{ url_for('get_product_list') }}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="search" name="q" class="form-control" value="{{ search_query or '' }}">
+                    <button class="btn btn-primary" type="submit">搜索</button>
+                </div>
+            </form>
+
+            <!-- 产品网格 -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for item in product_list %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <!-- 使用highlight过滤器 -->
+                            <h5 class="card-title">{{ item.name | highlight(search_query) }}</h5>
+                            <p class="text-muted small">{{ item.category.name }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('get_product_detail', product_id=item.id) }}" 
+							    class="btn btn-sm btn-light">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- 分页控件：需在href中动态拼接category_id与q参数 -->
+            {% if total_pages > 1 %}
+            <nav aria-label="产品分页" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    
+                    <!-- 动态参数拼接宏：简化后续重复的href编写 -->
+                    {% set base_query = "" %}
+                    {% if current_category_id %}
+                        {% set base_query = base_query ~ "category_id=" ~ current_category_id ~ "&" %}
+                    {% endif %}
+                    {% if search_query %}
+                        {% set base_query = base_query ~ "q=" ~ search_query ~ "&" %}
+                    {% endif %}
+
+                    <!-- 上一页 -->
+                    <li class="page-item {% if current_page <= 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('get_product_list') }}?{{ base_query }}page={{ current_page - 1 }}">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- 动态页码（滑动窗口逻辑） -->
+                    {% set start_page = [1, current_page - 2] | max %}
+                    {% set end_page = [total_pages, current_page + 2] | min %}
+                    
+                    {% if start_page > 1 %}
+                        <li class="page-item"><a class="page-link" href="{{ url_for('get_product_list') }}?{{ base_query }}page=1">1</a></li>
+                        {% if start_page > 2 %}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {% endif %}
+                    {% endif %}
+
+                    {% for p in range(start_page, end_page + 1) %}
+                        <li class="page-item {% if p == current_page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('get_product_list') }}?{{ base_query }}page={{ p }}">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if end_page < total_pages %}
+                        {% if end_page < total_pages - 1 %}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="{{ url_for('get_product_list') }}?{{ base_query }}page={{ total_pages }}">{{ total_pages }}</a></li>
+                    {% endif %}
+
+                    <!-- 下一页 -->
+                    <li class="page-item {% if current_page >= total_pages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('get_product_list') }}?{{ base_query }}page={{ current_page + 1 }}">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

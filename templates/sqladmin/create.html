@@ -1,0 +1,32 @@
+{% extends "sqladmin/layout.html" %}
+
+{% block content %}
+<!-- 渲染表单，略去外层div，保留核心 -->
+<form action="" method="POST" enctype="multipart/form-data" novalidate>
+    {{ form.csrf_token }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+        <div class="form-group mb-3">
+            {{ field.label(class="form-label") }}
+            <!-- 核心：为content字段添加tinymce-editor类 -->
+            {% if field.name == 'content' %}
+                {{ field(class="form-control tinymce-editor") }}
+            {% else %}
+                {{ field(class="form-control") }}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">保存</button>
+</form>
+{% endblock %}
+
+{% block tail %}
+{{ super() }}
+<!-- 引入TinyMCE核心库及自定义初始化脚本 -->
+<script src="{{ url_for('static', path='tinymce/js/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ url_for('static', path='js/tinymce_init.js') }}"></script>
+<script>
+    // 提交前同步iframe内容到textarea
+    document.querySelector('form').addEventListener('submit', 
+        () => tinymce.triggerSave());
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}人才招聘{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <h1 class="section-title mb-5">加入我们</h1>
+            
+            <!-- 招聘岗位列表 -->
+            <div class="list-group list-group-flush shadow-sm">
+                {% for job in job_list %}
+                    <div class="list-group-item p-4">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">
+                                <a href="{{ url_for('get_job_detail', job_id=job.id) }}" 
+                                   class="text-decoration-none text-dark stretched-link">
+                                   {{ job.title }}
+                                </a>
+                            </h5>
+                            <small class="text-muted">
+                                {{ job.created_at | format_local_time(fmt='%Y-%m-%d') }} 
+                                发布</small>
+                        </div>
+                        <p class="mb-1 text-muted">
+                            <i class="bi bi-geo-alt-fill me-1"></i> {{ job.department }}
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="list-group-item p-4 text-center text-muted">
+                        当前暂无开放的招聘岗位。
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

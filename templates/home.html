@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+
+{% block content %}
+<!-- 1. 巨幕轮播图区域 -->
+<div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- 轮播指示器 -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" 
+            class="active"></button>
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1">
+        </button>
+    </div>
+
+    <!-- 轮播内容 -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{ url_for('static', path='image/banner1.jpg') }}" 
+                class="d-block w-100 img-fluid">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', path='image/banner2.jpg') }}" 
+                class="d-block w-100 img-fluid">
+        </div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" 
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">上一张</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" 
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">下一张</span>
+    </button>
+</div>
+
+<!-- 2. 核心产品展示区域 -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold section-title">核心产品</h2>
+        <p class="text-muted">探索前沿的技术产品与服务</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 shadow-sm hover-shadow transition-all">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">{{ product.name }}</h5>
+                    <p class="card-text small text-muted mb-3">
+                        <i class="bi bi-tag-fill me-1"></i> {{ product.category.name }}
+                    </p>
+                    <p class="card-text text-truncate-3">
+                        点击详情查看完整介绍...
+                    </p>
+                </div>
+                <div class="card-footer bg-white border-top-0 text-end">
+                    <a href="{{ url_for('get_product_detail',product_id=product.id) }}"
+                        class="btn btn-sm btn-outline-primary">了解更多 
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('get_product_list') }}" class="btn btn-primary px-4">
+            查看所有产品</a>
+    </div>
+</div>
+
+<!-- 3. 近期新闻区域(灰色背景区分) -->
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold section-title mb-0">新闻动态</h2>
+            <a href="{{ url_for('get_news_list') }}" class="text-decoration-none">
+                更多动态 &raquo;</a>
+        </div>
+
+        <div class="row">
+            {% for news in news_list %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-secondary me-2">News</span>
+                            <small class="text-muted">
+                               {{ news.created_at | format_local_time(fmt='%Y-%m-%d') }}
+                            </small>
+                        </div>
+                        <h5 class="card-title">
+                            <a href="{{ url_for('get_news_detail', news_id=news.id) }}"
+                                class="text-dark text-decoration-none stretched-link">
+                                {{ news.title }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

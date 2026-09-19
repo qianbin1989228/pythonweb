@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}用户中心{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between mb-4">
+        <h2>用户中心</h2>
+        <a href="{{ url_for('handle_api_user_logout') }}" 
+            class="btn btn-outline-secondary">安全登出</a>
+    </div>
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">欢迎，{{ user.username }}</div>
+        <div class="card-body p-4">
+            <h5>API 凭证</h5>
+            <p class="text-muted">请妥善保管API密钥，避免泄露。</p>
+            <div class="input-group mb-4">
+                <span class="input-group-text">API Key</span>
+                <input type="text" class="form-control" value="{{ user.api_key }}" 
+                    readonly>
+            </div>
+            
+            <h5>用量统计</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert alert-info">累计调用：
+                        <strong>{{ user.api_call_count }}</strong> 次</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-success">今日剩余：
+                        <strong>{{ user.daily_api_calls_left }}</strong> 次</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

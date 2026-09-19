@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ news_detail.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <div class="bg-white p-4 p-md-5 rounded shadow-sm">
+                <!-- 新闻标题 -->
+                <h1 class="mb-4">{{ news_detail.title }}</h1>
+                
+                <!-- 时间 -->
+                <div class="text-muted mb-5 border-bottom pb-3">
+                    发布于：{{ news_detail.created_at | format_local_time }}
+                </div>
+
+                <!-- 新闻内容 -->
+                <div class="article-content">{{ news_detail.content | safe }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

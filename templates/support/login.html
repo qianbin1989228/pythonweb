@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}API用户登录{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light py-3"><h5>API用户登录</h5></div>
+                <div class="card-body p-4">
+                    {% if show_success_message %}
+                    <div class="alert alert-success">注册成功！现在可以使用该账户登录。
+                    </div>
+                    {% endif %}
+                    {% if error_message %}
+                    <div class="alert alert-danger">{{ error_message }}</div>
+                    {% endif %}
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">用户名</label>
+                            <input type="text" class="form-control" name="username" 
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">密码</label>
+                            <input type="password" class="form-control" name="password" 
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">登录</button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a href="{{ url_for('get_api_user_register_page') }}">立即注册
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

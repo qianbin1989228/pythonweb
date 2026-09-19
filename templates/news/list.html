@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}新闻动态{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <h1 class="section-title mb-5">新闻动态</h1>
+            <div class="list-group list-group-flush shadow-sm">
+                {% for item in news_list %}
+                <a href="{{ url_for('get_news_detail', news_id=item.id) }}" 
+				    class="list-group-item list-group-item-action p-4">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <h5 class="mb-1 text-muted">{{ item.title }}</h5>
+                        <small class="text-muted">
+                            <!-- 时间格式化稍后处理 -->
+                            {{ item.created_at | format_local_time('%Y-%m-%d') }}
+                        </small>
+                    </div>
+                </a>
+                {% else %}
+                <div class="text-center">暂无新闻</div>
+                {% endfor %}
+            </div>
+
+            <!-- 分页组件核心逻辑 -->
+            {% set start_page = [1, current_page - 2] | max %}
+            {% set end_page = [total_pages, current_page + 2] | min %}
+            <ul class="pagination mt-4 justify-content-center">
+                <!-- 上一页 -->
+                <li class="page-item {% if current_page <= 1 %}disabled{% endif %}">
+                    <a class="page-link" href="?page={{ current_page - 1 }}">&laquo;</a>
+                </li>
+				
+                <!-- 页码循环 -->
+                {% for p in range(start_page, end_page + 1) %}
+                <li class="page-item {% if p == current_page %}active{% endif %}">
+                    <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+				
+                <!-- 下一页 -->
+                <li class="page-item {% if current_page >= total_pages %}disabled{% endif %}">
+                    <a class="page-link" href="?page={{ current_page + 1 }}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

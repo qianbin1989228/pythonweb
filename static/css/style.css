@@ -1,0 +1,25 @@
+/* 导航栏品牌色与动画 */
+.navbar-brand { color: #0d6efd; }
+.nav-link { transition: color 0.2s ease-in-out; }
+.nav-link:hover, .navbar-nav .nav-link.active { color: #0d6efd !important; }
+
+/* 章节标题下划线装饰 */
+.section-title {
+    padding-bottom: 0.75rem;
+    border-bottom: 4px solid #0d6efd;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+/* 页脚深色主题 */
+.footer { background-color: #212529; color: #adb5bd; }
+.footer h5 { color: #ffffff; }
+.footer a { color: #ced4da; text-decoration: none; transition: color 0.2s ease; }
+.footer a:hover { color: #ffffff; text-decoration: underline; }
+
+/* 新闻详情—富文本图片自适应 */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

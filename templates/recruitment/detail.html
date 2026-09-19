@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job_detail.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <div class="bg-white p-4 p-md-5 rounded shadow-sm">
+
+                {% if job_detail %}
+                    <!-- 职位主标题 -->
+                    <h1 class="mb-3">{{ job_detail.title }}</h1>
+                    <!-- 副信息：展示部门与本地化格式后的发布日期 -->
+                    <div class="text-muted mb-5 border-bottom pb-3">
+                        <span class="me-4">
+                            <i class="bi bi-building me-1"></i>
+                            所属部门：{{ job_detail.department }}
+                        </span>
+                        <span>
+                            <i class="bi bi-clock-fill me-1"></i>
+                            发布于：{{ job_detail.created_at | format_local_time }}
+                        </span>
+                    </div>
+                    <!-- 岗位职责与要求区域 -->
+                    <div class="article-content">
+                        {{ job_detail.content | safe }}
+                    </div>
+                    <!-- 申请交互区域 -->
+                    <hr class="my-5">
+                    <div class="text-center">
+					    <a href="{{ url_for('get_application_form', job_id=job_detail.id) }}" 
+                            class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-cursor-fill me-2"></i> 立即申请
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        未能找到该招聘岗位的信息。
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

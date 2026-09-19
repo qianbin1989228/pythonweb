@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - 派森科技</title>
+	<!-- 引入静态资源 -->
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+	<!-- 顶部导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid container-xl">
+            <a class="navbar-brand fw-bold fs-4" href="#">
+                <i class="bi bi-cpu-fill"></i> 派森科技
+            </a>
+            <!-- 导航链接部分 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-bold">
+                    <li class="nav-item mx-2">
+						<a class="nav-link {% if active_page == 'home' %}active{% endif %}" 
+							href="{{ url_for('read_root') }}">首页</a>
+					</li>
+                    <li class="nav-item mx-2">
+					    <a class="nav-link {% if active_page == 'company' %}active{% endif %}" 
+                            href="{{ url_for('get_company_about_page') }}">公司简介</a>
+					</li>
+                    <li class="nav-item mx-2">
+					    <a class="nav-link {% if active_page == 'news' %}active{% endif %}" 
+                            href="{{ url_for('get_news_list') }}">新闻动态</a>
+					</li>
+					<li class="nav-item mx-2">
+					    <a class="nav-link {% if active_page == 'products' %}active{% endif %}" 
+                            href="{{ url_for('get_product_list') }}">产品中心</a>
+					</li>
+					<li class="nav-item mx-2">
+					    <a class="nav-link {% if active_page == 'recruitment' %}active{% endif %}" 
+                            href="{{ url_for('get_job_list') }}">人才招聘</a>
+					</li>
+					<li class="nav-item mx-2">
+						<a class="nav-link {% if active_page == 'support' %}active{% endif %}" 
+						   href="{{ url_for('get_online_tools') }}">服务支持</a>
+					</li>
+					<li class="nav-item ms-lg-3">
+						<div class="d-flex align-items-center">
+							<a class="nav-link" href="{{ url_for('get_user_dashboard_page') }}">
+								<i class="bi bi-person-circle me-1"></i>用户中心
+							</a>
+							<span class="nav-link disabled d-none d-lg-block">/</span>
+							<a class="nav-link" href="{{ url_for('handle_api_user_logout') }}">登出</a>
+						</div>
+					</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-shrink-0">
+        <!-- 预留主体内容占位块 -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 页脚 -->
+	<footer class="mt-auto pt-4 pb-3 footer">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 mx-auto mb-3">
+                    <h5 class="text-uppercase fw-bold mb-4"><i class="bi bi-cpu-fill 
+                        me-2"></i>派森科技</h5>
+                    <p>通过 AI 视觉技术，为生活增添乐趣，为工业注入智能。</p>
+                </div>
+                <div class="col-md-2 col-lg-2 mx-auto mb-3">
+                    <h5 class="text-uppercase fw-bold mb-4">快速链接</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">公司简介</a></li>
+                        <li class="mb-2"><a href="#">产品中心</a></li>
+                        <li class="mb-2"><a href="#">人才招聘</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-3 mx-auto mb-md-0 mb-3">
+                    <h5 class="text-uppercase fw-bold mb-4">联系我们</h5>
+                    <p><i class="bi bi-geo-alt-fill me-3"></i> xx市科技园区123号</p>
+                    <p><i class="bi bi-envelope-fill me-3"></i> contact@paisentech.com</p>
+                    <p><i class="bi bi-telephone-fill me-3"></i> +86 400-123-4567</p>
+                </div>
+            </div>
+            <hr class="mt-2 mb-4">
+            <div class="text-center"><p class="small">&copy; 2025 派森科技. 
+                保留所有权利.</p></div>
+        </div>
+    </footer>
+	<!-- 智能客服悬浮按钮 -->
+<div class="position-fixed bottom-0 end-0 p-4" style="z-index: 1050;">
+    <button class="btn btn-primary rounded-circle shadow-lg p-3" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#chatWindow">
+        <i class="bi bi-chat-dots-fill fs-3"></i>
+    </button>
+</div>
+
+<!-- 聊天窗口 -->
+<div class="collapse position-fixed bottom-0 end-0 p-4" id="chatWindow" 
+    style="z-index: 1040; width: 350px;">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between 
+            align-items-center">
+            <h5 class="mb-0 fs-6">智能客服助手</h5>
+            <button type="button" class="btn-close btn-close-white" 
+                data-bs-toggle="collapse" data-bs-target="#chatWindow"></button>
+        </div>
+        <div class="card-body" id="chatBody" style="height: 300px; overflow-y: auto; 
+            background-color: #f8f9fa;">
+            <div class="d-flex mb-3">
+                <div class="bg-white p-2 rounded shadow-sm text-dark border" 
+                    style="max-width: 80%;">
+                    您好！我是派森科技的AI助手，有什么可以帮您？
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="input-group">
+                <input type="text" id="chatInput" class="form-control form-control-sm" 
+                    placeholder="请输入问题...">
+                <button class="btn btn-primary btn-sm" id="sendBtn"><i class="bi bi-send">
+                    </i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendBtn = document.getElementById('sendBtn');
+        const chatInput = document.getElementById('chatInput');
+        const chatBody = document.getElementById('chatBody');
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // 1. 显示用户消息
+            chatBody.innerHTML += `
+                <div class="d-flex justify-content-end mb-3">
+                    <div class="bg-primary p-2 rounded shadow-sm text-white" 
+                        style="max-width: 80%;">
+                        ${message}
+                    </div>
+                </div>`;
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // 2. 显示加载状态
+            const loadingId = 'loading-' + Date.now();
+            chatBody.innerHTML += `
+                <div class="d-flex mb-3" id="${loadingId}">
+                    <div class="bg-white p-2 rounded shadow-sm text-dark border">
+                        <span class="spinner-dots">正在思考...</span>
+                    </div>
+                </div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // 3. 调用API
+            try {
+                const response = await fetch('/support/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: message})
+                });
+                const data = await response.json();
+                
+                // 移除加载状态并显示回复
+                document.getElementById(loadingId).remove();
+                chatBody.innerHTML += `
+                    <div class="d-flex mb-3">
+                        <div class="bg-white p-2 rounded shadow-sm text-dark border" 
+                            style="max-width: 80%;">${data.reply}
+                        </div>
+                    </div>`;
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                // 错误处理...
+            }
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    });
+</script>
+
+<!-- 引入所有公共的JS文件 -->
+<script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}公司简介{% endblock %}
+
+{% block content %}
+<div class="container py-1">
+    <!-- 健壮性检查：防止因数据库为空导致渲染报错 -->
+    {% if company_info %}
+	<div class="row justify-content-center">
+		<div class="col-lg-10 col-xl-8">
+			<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+				<h1 class="section-title">{{ company_info.overview_title }}</h1>
+				<div class="text-center mb-4">
+					<img src="{{ company_info.overview_image_url }}" 
+						class="img-fluid rounded">
+				</div>
+				<p class="lead">{{ company_info.overview_lead_text }}</p>
+				
+				<hr class="my-5">
+				
+				<h3 class="fw-bold mb-4 section-title">发展历程</h3>
+				<p><strong>{{ company_info.history_1.split('：')[0] }}：</strong>{{ company_info.history_1.split('：')[1] }}</p>
+				<p><strong>{{ company_info.history_2.split('：')[0] }}：</strong>{{ company_info.history_2.split('：')[1] }}</p>
+				<p><strong>{{ company_info.history_3.split('：')[0] }}：</strong>{{ company_info.history_3.split('：')[1] }}</p>
+				<p><strong>{{ company_info.history_4.split('：')[0] }}：</strong>{{ company_info.history_4.split('：')[1] }}</p>
+				
+
+				<hr class="my-5">
+
+				<h3 class="fw-bold mb-4 section-title">{{ company_info.culture_title }}</h3>
+				<p>{{ company_info.culture_intro }}</p>
+				<ul class="list-unstyled">
+					<li class="mb-3 d-flex align-items-start">
+						<i class="bi bi-lightbulb-fill text-primary me-3 fs-4 
+							mt-1"></i>
+						<div><strong>{{ company_info.culture_item1_title }}：</strong>{{ company_info.culture_item1_text }}</div>
+					</li>
+					<li class="mb-3 d-flex align-items-start">
+						<i class="bi bi-pin-map-fill text-primary me-3 fs-4 
+							mt-1"></i>
+						<div><strong>{{ company_info.culture_item2_title }}：</strong>{{ company_info.culture_item2_text }}</div>
+					</li>
+					<li class="mb-3 d-flex align-items-start">
+						<i class="bi bi-gem text-primary me-3 fs-4 
+							mt-1"></i>
+						<div><strong>{{ company_info.culture_item3_title }}：</strong>{{ company_info.culture_item3_text }}</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% else %}
+        <div class="alert alert-warning">公司信息尚未配置，请在后台添加。</div>
+    {% endif %}
+</div>
+{% endblock %}

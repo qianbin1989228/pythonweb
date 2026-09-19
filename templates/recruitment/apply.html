@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}申请职位 - {{ job_position.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light py-3">
+                    <h4 class="mb-0">
+                     申请职位：<span class="text-primary">{{ job_position.title }}</span>
+                    </h4>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" enctype="multipart/form-data">
+                        <!-- 姓名输入框 -->
+                        <div class="mb-3">
+                            <label for="applicant_name" class="form-label">姓名</label>
+                            <input type="text" class="form-control" id="applicant_name" 
+                                name="applicant_name" required>
+                        </div>
+                        <!-- 邮箱输入框 -->
+                        <div class="mb-3">
+                            <label for="applicant_email" class="form-label">电子邮箱
+                            </label>
+                            <input type="email" class="form-control" id="applicant_email" 
+                                name="applicant_email" required>
+                        </div>
+                        <!-- 电话输入框 -->
+                        <div class="mb-3">
+                            <label for="applicant_phone" class="form-label">联系电话
+                            </label>
+                            <input type="tel" class="form-control" id="applicant_phone" 
+                                name="applicant_phone" required>
+                        </div>
+                        <!-- 简历上传框 -->
+                        <div class="mb-4">
+                            <label for="resume" class="form-label">上传简历</label>
+                            <input class="form-control" type="file" id="resume" 
+                                name="resume" accept=".pdf,.doc,.docx" required>
+                            <div class="form-text">请上传PDF或Word格式的简历文件。</div>
+                        </div>
+                        <!-- 提交按钮 -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send-fill me-2"></i> 确认提交
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
